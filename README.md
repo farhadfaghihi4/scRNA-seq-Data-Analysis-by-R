@@ -4,6 +4,7 @@ Rewriting the code of a paper about employing scRNA-seq and bulk RNA-seq for res
 <br> The main challenge of this project was to rewrite the code without knowing the value of parameters that have been set in various functions. As a result, I had to run a function several times to find the best value for a parameter.
 ## Table of Contents
 - [Introduction](#introduction)
+- [The Main Goal](#the-main-goal)
 
 ## Introduction
 Cancer is one of the leading causes of death in the world and it can affect people of all ages. Cancer cells are a result of genetic mutations caused by endogenous or environmental factors. The development of malignant tumors is a complex process that is mostly uncovered and it needs to make manifold efforts to unravel the main pathway that every normal cell passes until it turns into a cancer cell. Obviously, shedding light on this multi-stage process to decipher the hidden aspects of cancer cells' progression.
@@ -11,4 +12,4 @@ Cancer is one of the leading causes of death in the world and it can affect peop
 <br> Nowadays, manifold sequencing techniques and methods can make an important contribution to achieving this goal. Especially, single-cell RNA sequencing (scRNA-seq) and bulk RNA sequencing are featured methods that can help to investigate cellular heterogeneity of tumors and identify differentially expressed genes in cancer cells compared to normal cells.
 ## The Main Goal
 <br> In this project, I have selected a high-level paper about employing scRNA-seq and bulk RNA-seq to observe the response to Glucocorticoids in human breast cancer cells. Then, I attempted to analyze the raw data (deposited in the [GEO database](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE141834)) and rewrite the code exploiting R programming in order to generate plots and figures of the paper.
-<br> The main goal of this project is to examine myself that how much I can analyze the sequencing data of cancer cells and derive 
+<br> The main goal of this project is to examine how much I can analyze the sequencing data of cancer cells and derive valuable outcomes that can be employed for battling cancer.
