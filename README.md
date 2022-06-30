@@ -35,8 +35,27 @@ After that, we can plot the some of the figures of the article by means of ggplo
 <img src="/Plots/Fig 1g.png" alt="Figure 2g" class="center" width="300">
 <img src="/Plots/Fig 1h.png" alt="Figure 2h" class="center" width="300">
 ### Cell Cycle Scoring
-In the next phase, the cell cycle scoring is performed employing the cyclone function of the scran Package. However, at the first place, the gene names have to be converted into standard ones in order that we have the best scoring. After finding the new gene names, the scoring is performed by the following lines of code:
+In the next phase, the cell cycle scoring is performed employing the cyclone function of the scran Package. However, in the first place, the gene names have to be converted into standard ones in order that has the best scoring. After finding the new gene names, the scoring is performed by the following lines of code:
 ```
 dex.sce <- as.SingleCellExperiment(dex)
 cycle.scores <- scran::cyclone(dex.sce, hs.pairs, gene.names = new.rownames$gene_name)
 ```
+### Scaling and Principal Component Analysis (PCA)
+In this step, the top 500 variable genes is scaled and centered exploiting negative binomial model. The impacts of transcript counts, mitochondrial percent, and cell-cycle scores has been regressed-out.
+```
+dex <- FindVariableFeatures(dex, nfeatures = 500)
+dex <- ScaleData(dex, model.use = "negbinom", vars.to.regress = c("percent.mt", "G1","S","G2M", "nCount_RNA"))
+```
+Then, PCA is performed on the data using the 30 principal components and the results is plotted on a scatter plot:
+```
+dex <- RunPCA(dex, verbose = F, npcs = 30, seed.use = 119)
+DimPlot(dex, reduction = "pca", group.by = "Hours_Dex", pt.size = 1.5) +
+  scale_y_continuous(breaks = seq(-15,10,5))+
+  theme(legend.title = element_text(size = 20),
+        axis.title = element_text(size = 17),
+        axis.text = element_text(size = 17),
+        legend.text = element_text(size = 17)) + 
+  guides(color= guide_legend(title = "Hrs Dex"))
+```
+<img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400">
+Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
