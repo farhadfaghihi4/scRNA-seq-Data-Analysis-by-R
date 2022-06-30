@@ -37,13 +37,13 @@ After that, we can plot the some of the figures of the article by means of ggplo
 <img src="/Plots/Fig 1f.png" alt="Figure 1f" class="center" width="250">
 <img src="/Plots/Fig 1g.png" alt="Figure 2g" class="center" width="250">
 <img src="/Plots/Fig 1h.png" alt="Figure 2h" class="center" width="250">
-### Cell Cycle Scoring
+### 2- Cell Cycle Scoring
 In the next phase, the cell cycle scoring is performed employing the cyclone function of the scran Package. However, in the first place, the gene names have to be converted into standard ones in order that has the best scoring. After finding the new gene names, the scoring is performed by the following lines of code:
 ```
 dex.sce <- as.SingleCellExperiment(dex)
 cycle.scores <- scran::cyclone(dex.sce, hs.pairs, gene.names = new.rownames$gene_name)
 ```
-### Scaling and Principal Component Analysis (PCA)
+### 3- Scaling and Principal Component Analysis (PCA)
 In this step, the top 500 variable genes is scaled and centered exploiting negative binomial model. The impacts of transcript counts, mitochondrial percent, and cell-cycle scores has been regressed-out.
 ```
 dex <- FindVariableFeatures(dex, nfeatures = 500)
@@ -62,7 +62,7 @@ DimPlot(dex, reduction = "pca", group.by = "Hours_Dex", pt.size = 1.5) +
 ```
 <img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400">
 Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
-### Clustering the Data
+### 4- Clustering the Data
 The next phase comprises of finding the nearest neighbours using the top 16 principal components. After that, the data is clustered into 7 clusters using a proper resolution.
 ```
 dex <- FindNeighbors(dex, reduction = "pca", dims = 1:16)
@@ -70,7 +70,7 @@ dex <- FindClusters(dex, resolution = 0.45)
 ```
 Then, the number of cells in each cluster in different Dex treatment timepoints is plotted in the following histogram:
 <img src="/Plots/Fig 3g.png" alt="Figure 3g" width="700">
-### Differentially Expressed Genes (DEGs)
+### 5- Differentially Expressed Genes (DEGs)
 After clustering the data, the differentially expressed genes is found by comparing each dex-treatment timepoint with the untreated cells. 
 For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
 Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
@@ -78,7 +78,7 @@ Ultimately, the following number of DEGs is detected in each Dex trwatment timep
 Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
 The following number of DEGs is detected in each Dex trwatment timepoint:
 <img src="/Plots/Supplemental Fig 2a.JPG" alt="Supplemental Figure 2a" width="400">
-### Ratio of Responding Genes (RRG)
+### 6- Ratio of Responding Genes (RRG)
 Finally, the number Dex target genes showed a response in each cell is determined to calculate the ratio of responding genes.
 Firstly, the mean log-scaled expression level and standard deviation is calculated for each DEG in untreated cells (using only non-zero values). A gene is "responsive" if it was expressed greater than one SD above the mean untreated level or more than one SD below the mean for downregulated genes.
 <img src="/Plots/Fig 4d.png" alt="Figure 4d" width="400">
