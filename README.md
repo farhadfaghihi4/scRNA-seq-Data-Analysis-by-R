@@ -18,6 +18,25 @@ First of all, this research article is a report on a high-level project, conduct
 <br> Cellular heterogeneity is one of the main obstacles in the way of profiling and treatment of cancers. The main goal that Hoffman and his colleagues pursue in this study is to investigate the cellular heterogeneity in the transcriptional response of human breast cancer cells to glucocorticoids. To tackle this, they opt to detect transcriptional response, employing scRNA-seq across 18 hours of dexamethasone (Dex) treatment. Ultimately, scRNA-seq revealed significant cellular heterogeneity in response to Dex treatment from the glucocorticoid receptor target genes. Furthermore, the results unfold that there is remarkable variability between individual cells in the transcriptional response to hormones.
 ## Softwares and Packages
 R programming (version 4.1.2) has been used for statistical computing and plotting figures. In addition, the Seurat R package (version 3.0.2) has been employed to perform normalizing, scaling, principal component analysis, and differential expression analysis on the single-cell data. Furthermore, the ggplot2 R package (version 3.3.5) has been exploited to plot the results of the Seurat package. Additionally, Limma (version 3.50.3) and edgeR (version 3.36.0) R packages have been used for finding differentially expressed genes in the bulk RNA-seq data. 
-<!-- <img src="/Plots/Fig 1a.png" alt="Figure 1a" class="center"> -->
 ## Data Analysis and Plotting Figures
 ### 1- Basic Data Preparation
+In the first step, the raw data is called and converted it into a Seurat object. 
+```
+dex <- read.delim("Data/GSE141834_scRNAseq_rawCounts.txt", header = T, row.names = 1, sep = "\t")
+dex <- CreateSeuratObject(dex,project = "DEX")
+```
+Then, the data is normalized using the NormalizeData function and the cells with the percentage of mitochondrial genes higher than 5% is removed by the following line of codes:
+```
+dex$percent.mt <- PercentageFeatureSet(dex, pattern = "^MT-")
+dex <- subset(dex, subset = percent.mt < 5)
+```
+After that, we can plot the some of the figures of the article by means of ggplot2 package such as the following graphs:
+<img src="/Plots/Fig 1f.png" alt="Figure 1f" class="center" width="300">
+<img src="/Plots/Fig 1g.png" alt="Figure 2g" class="center" width="300">
+<img src="/Plots/Fig 1h.png" alt="Figure 2h" class="center" width="300">
+### Cell Cycle Scoring
+In the next phase, the cell cycle scoring is performed employing the cyclone function of the scran Package. However, at the first place, the gene names have to be converted into standard ones in order that we have the best scoring. After finding the new gene names, the scoring is performed by the following lines of code:
+```
+dex.sce <- as.SingleCellExperiment(dex)
+cycle.scores <- scran::cyclone(dex.sce, hs.pairs, gene.names = new.rownames$gene_name)
+```
