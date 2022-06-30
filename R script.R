@@ -7,8 +7,6 @@ library(limma)
 library(edgeR)
 
 
-setwd("H:/Apply/Data Regeneration/Practice SCE/6/")
-dex <- readRDS("rds/dex.rds")
 V.Hours_Dex <- c("00","01","02","04","08","18")
 
 
@@ -23,8 +21,7 @@ dex <- NormalizeData(dex, normalization.method = "LogNormalize", scale.factor = 
 dex$Hours_Dex <- substr(colnames(dex), 5, 6)
 # Calculating the percentage of mitochondrial genes in each cell
 dex$percent.mt <- PercentageFeatureSet(dex, pattern = "^MT-")
-# Removing the cells with the percentage of mitochondrial genes higher than 5%
-# as said in the paper
+# Removing the cells with the percentage of mitochondrial genes higher than 5% as said in the paper
 dex <- subset(dex, subset = percent.mt < 5)
 
 
@@ -50,8 +47,7 @@ ggplot(mapping = aes(dex$Hours_Dex,dex$nFeature_RNA)) +
 
 
 
-# Calculating the ratio of cells that expressing special genes 
-# in each time course of Dex treatment
+# Calculating the ratio of cells that expressing special genes in each time course of Dex treatment
 genes <- c("PNMT","TSC22D3","GLUL","ZNF703","SPTSSB", "IER3", "PLK2")
 exp.ratio <- data.frame()
 x <- NULL
@@ -66,8 +62,7 @@ colnames(exp.ratio) <- c("gene", "Hours_Dex", "Ratio")
 #saveRDS(exp.ratio, "rds/exp.ratio.rds")
 
 
-# Scaled Log10 expression (box and scatter plots) and
-# ratio of expressing cells (black dot/line plot)
+# Scaled Log10 expression (box and scatter plots) and ratio of expressing cells (black dot/line plot)
 # Fig. 1f
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')["PNMT",], x= dex$Hours_Dex, 
@@ -80,6 +75,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = "PNMT") +
   theme_classic() + NoLegend()
+
 # Fig. 1g
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[2],], x= dex$Hours_Dex, 
@@ -92,6 +88,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = genes[2]) +
   theme_classic() + NoLegend()
+
 # Fig. 1h
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[3],], x= dex$Hours_Dex, 
@@ -104,6 +101,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = genes[3]) +
   theme_classic() + NoLegend()
+
 # Fig. 2e
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[4],], x= dex$Hours_Dex, 
@@ -116,6 +114,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = genes[4]) +
   theme_classic() + NoLegend()
+
 # Supplemental Fig. 1b
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[5],], x= dex$Hours_Dex, 
@@ -128,6 +127,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = genes[5]) +
   theme_classic() + NoLegend()
+
 # Supplemental Fig. 1c
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[6],], x= dex$Hours_Dex, 
@@ -140,6 +140,7 @@ ggplot() +
                                          name = "Ratio of Expressing Cells")) +
   labs(x= "Hours Dex", y= "Scaled Log10 Expression", title = genes[6]) +
   theme_classic() + NoLegend()
+
 # Supplemental Fig. 1d
 ggplot() +
   geom_boxplot(mapping = aes(y= GetAssayData(dex, slot = 'data')[genes[7],], x= dex$Hours_Dex, 
@@ -231,8 +232,7 @@ dex$G2M <- cycle.scores$scores$G2M
 # Finding the top 500 variable genes for scaling
 dex <- FindVariableFeatures(dex, nfeatures = 500)
 # Scaling and centering the top 500 variable genes using the negative binomial model
-# The impacts of transcript counts, mitochondrial percent, and cell-cycle scores 
-# has been regressed-out.
+# The impacts of transcript counts, mitochondrial percent, and cell-cycle scores has been regressed-out.
 dex <- ScaleData(dex, model.use = "negbinom",
                  vars.to.regress = 
                    c("percent.mt", 
@@ -263,9 +263,8 @@ DimPlot(dex, reduction = "tsne", group.by = "Hours_Dex", pt.size = 1.5) +
         axis.text = element_text(size = 17),
         legend.text = element_text(size = 17)) + 
   guides(color= guide_legend(title = "Hrs Dex"))
-# Note: A slight difference between this plot and the t-SNE plot in the paper is due to
-# the fact that we don't know what value has been set to perplexity and seed.use in 
-# the RunTSNE function
+# Note: A slight difference between this plot and the t-SNE plot in the paper is due to the fact that I don't know what value has been set to 
+# perplexity and seed.use in the RunTSNE function
 
 # Performing UMAP using the top 16 principal components
 dex <- RunUMAP(dex, reduction = "pca", dims = 1:16)
@@ -275,9 +274,8 @@ DimPlot(dex, reduction = "umap", group.by = "Hours_Dex", pt.size = 1.5) +
         axis.title = element_text(size = 17),
         axis.text = element_text(size = 17),
         legend.text = element_text(size = 17))
-# Note: A slight difference between this plot and the UMAP plot in the paper is due to
-# the fact that we don't know what value has been set to the parameters used in 
-# the RunUMAP function
+# Note: A slight difference between this plot and the UMAP plot in the paper is due to the fact that I don't know what value has been set to the 
+# parameters used in the RunUMAP function
 
 
 
@@ -293,7 +291,6 @@ FeaturePlot(object = dex, features = featureplot.genes, pt.size = 0.9,
 dex <- FindNeighbors(dex, reduction = "pca", dims = 1:16)
 # Clustering the data into 7 clusters using a proper resolution
 dex <- FindClusters(dex, resolution = 0.45)
-#saveRDS(dex, "rds/dex.rds")
 
 
 # Calculating the number of cells from each treatment timepoint present in the clusters
@@ -329,10 +326,9 @@ hist_fun <- function(){
 
 
 # Differentially Expressed Genes ####
-# Finding the differentially expressed genes by comparing each dex-treatment timepoint
-# with the untreated cells. 
-# For this matter, we exploit the MAST test with a fold change cutoff of 1.25, 
-# an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
+# Finding the differentially expressed genes by comparing each dex-treatment timepoint with the untreated cells. 
+# For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in 
+# fewer than 10% of cells.
 table.DEGs <- data.frame()
 sc.DEGs <- NULL
 sc.DEGs.table <- NULL
@@ -363,7 +359,7 @@ DEGs$singlecell.uniq <- DEGs$singlecell[!(DEGs$singlecell %in% DEGs$bulk)]
 
 
 # Bulk RNA Sequencing ####
-# reading the normalized data as a count matrix
+# Reading the normalized data as a count matrix
 cn <- read.delim("Data/GSE141834_bulkRNAseq_normalized_counts.txt", header = T,
                  row.names = 1, sep = "\t")
 # Un-normalize the data
@@ -390,8 +386,7 @@ cont.matrix$bulk04 <- makeContrasts(dex04-dex00, levels = design)
 cont.matrix$bulk08 <- makeContrasts(dex08-dex00, levels = design)
 cont.matrix$bulk18 <- makeContrasts(dex18-dex00, levels = design)
 
-# Calling and filtering DEGs for each Dex-treatment timepoint with a fold change 
-# cutoff of 1.5 and adjusted p-value of 0.05.
+# Calling and filtering DEGs for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
 table.bulk.DEGs <- data.frame()
 bulk.DEGs.df <- list()
 bulk.DEGs <- NULL
@@ -406,13 +401,6 @@ for (i in 2:6) {
   
   bulk.DEGs.df[[paste0("bulk", V.Hours_Dex[i])]] <- 
     b[b$adj.P.Val < 0.05 & abs(b$logFC) > log2(1.5),]
-  
-  #if(i == 3){
-  #  a <- b[b$adj.P.Val < 0.05,]
-  #  bulk.DEGs.df[[paste0("bulk", V.Hours_Dex[i])]] <- 
-  #    a[a$logFC > log2(1.5) | a$logFC < -1.5,]
-  #}
-  
   
   fig2c.heatmap.df[[paste0("bulk", V.Hours_Dex[i])]] <-
     b[DEGs$singlecell.uniq,]
@@ -540,8 +528,7 @@ phmb <- pheatmap(bulk.df.heatmap[row.order,], cluster_rows = F,
 
 # Ratio of Responding Genes ####
 
-# Calculating the mean log-scaled expression level and the standard deviation
-# for plotting the horizontal line of Fig. 4a and 4b
+# Calculating the mean log-scaled expression level and the standard deviation for plotting the horizontal line of Fig. 4a and 4b
 dex.sce <- as.SingleCellExperiment(dex)
 dex.fkbp5 <- dex.sce["FKBP5"][,dex.sce$Hours_Dex=="00"]
 # Excluding zero values form calculation
@@ -575,10 +562,9 @@ ggplot() +
 
 
 # Determining how many Dex target genes showed a response in each cell (Ratio of Responding Genes)
-# We determine the mean log-scaled expression level and standard deviation 
-# for each Differentially Expressed Gene in untreated cells (using only non-zero values).
-# A gene is "responsive" if it was expressed greater than one SD above the mean
-# untreated level or more than one SD below the mean for downregulated genes.
+# We determine the mean log-scaled expression level and standard deviation for each Differentially Expressed Gene in untreated cells 
+# (using only non-zero values). A gene is "responsive" if it was expressed greater than one SD above the mean untreated level or more than 
+# one SD below the mean for downregulated genes.
 rrg.df <- data.frame()
 for (i in 1:414) {
   print(i)
