@@ -13,3 +13,8 @@ Cancer is one of the leading causes of death in the world and it can affect peop
 ## The Main Goal
 In this project, I have selected a high-level paper about employing scRNA-seq and bulk RNA-seq to observe the response to Glucocorticoids in human breast cancer cells. Then, I attempted to analyze the raw data (deposited in the [GEO database](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE141834)) and rewrite the code exploiting R programming in order to generate plots and figures of the paper.
 <br> The main goal of this project is to examine how much I can analyze the sequencing data of cancer cells and derive valuable outcomes that can be employed for battling cancer.
+# Softwares and Packages
+R programming (version 4.1.2) has been used for statistical computing and plotting figures. In addition, the Seurat R package (version 3.0.2) has been employed to perform normalizing, scaling, principal component analysis, and differential expression analysis on the single-cell data. Furthermore, the ggplot2 R package (version 3.3.5) has been exploited to plot the results of the Seurat package. Additionally, Limma (version 3.50.3) and edgeR (version 3.36.0) R packages have been used for finding differentially expressed genes in the bulk RNA-seq data. 
+<!-- <img src="/Plots/Fig 1a.png" alt="Figure 1a" class="center"> -->
+# Data Analysis and Plotting Figures
+## Basic Data Preparation
