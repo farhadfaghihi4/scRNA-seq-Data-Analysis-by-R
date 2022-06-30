@@ -31,9 +31,9 @@ dex$percent.mt <- PercentageFeatureSet(dex, pattern = "^MT-")
 dex <- subset(dex, subset = percent.mt < 5)
 ```
 After that, we can plot the some of the figures of the article by means of ggplot2 package such as the following graphs:
-<img src="/Plots/Fig 1f.png" alt="Figure 1f" class="center" width="300">
-<img src="/Plots/Fig 1g.png" alt="Figure 2g" class="center" width="300">
-<img src="/Plots/Fig 1h.png" alt="Figure 2h" class="center" width="300">
+<img src="/Plots/Fig 1f.png" alt="Figure 1f" class="center" width="250">
+<img src="/Plots/Fig 1g.png" alt="Figure 2g" class="center" width="250">
+<img src="/Plots/Fig 1h.png" alt="Figure 2h" class="center" width="250">
 ### Cell Cycle Scoring
 In the next phase, the cell cycle scoring is performed employing the cyclone function of the scran Package. However, in the first place, the gene names have to be converted into standard ones in order that has the best scoring. After finding the new gene names, the scoring is performed by the following lines of code:
 ```
@@ -59,3 +59,11 @@ DimPlot(dex, reduction = "pca", group.by = "Hours_Dex", pt.size = 1.5) +
 ```
 <img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400">
 Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
+### Clustering the Data
+The next phase comprises of finding the nearest neighbours using the top 16 principal components. After that, the data is clustered into 7 clusters using a proper resolution.
+```
+dex <- FindNeighbors(dex, reduction = "pca", dims = 1:16)
+dex <- FindClusters(dex, resolution = 0.45)
+```
+Then, the number of cells in each cluster in different Dex treatment timepoints is plotted in the following histogram:
+<img src="/Plots/Fig 3g.png" alt="Figure 3g" width="400">
