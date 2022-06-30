@@ -66,4 +66,9 @@ dex <- FindNeighbors(dex, reduction = "pca", dims = 1:16)
 dex <- FindClusters(dex, resolution = 0.45)
 ```
 Then, the number of cells in each cluster in different Dex treatment timepoints is plotted in the following histogram:
-<img src="/Plots/Fig 3g.png" alt="Figure 3g" width="400">
+<img src="/Plots/Fig 3g.png" alt="Figure 3g" width="700">
+### Differentially Expressed Genes (DEGs)
+After clustering the data, the differentially expressed genes is found by comparing each dex-treatment timepoint with the untreated cells. 
+For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
+Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
+<img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
