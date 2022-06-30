@@ -61,7 +61,7 @@ DimPlot(dex, reduction = "pca", group.by = "Hours_Dex", pt.size = 1.5) +
   guides(color= guide_legend(title = "Hrs Dex"))
 ```
 <img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400"></img>
-Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
+<br>Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
 ### 4- Clustering the Data
 The next phase comprises of finding the nearest neighbours using the top 16 principal components. After that, the data is clustered into 7 clusters using a proper resolution.
 ```
@@ -69,16 +69,16 @@ dex <- FindNeighbors(dex, reduction = "pca", dims = 1:16)
 dex <- FindClusters(dex, resolution = 0.45)
 ```
 Then, the number of cells in each cluster in different Dex treatment timepoints is plotted in the following histogram:
-<img src="/Plots/Fig 3g.png" alt="Figure 3g" width="700">
+<br><img src="/Plots/Fig 3g.png" alt="Figure 3g" width="700">
 ### 5- Differentially Expressed Genes (DEGs)
 After clustering the data, the differentially expressed genes is found by comparing each dex-treatment timepoint with the untreated cells. 
 For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
-Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
-<img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
-Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
-The following number of DEGs is detected in each Dex trwatment timepoint:
-<img src="/Plots/Supplemental Fig 2a.JPG" alt="Supplemental Figure 2a" width="400">
+<br>Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
+<br><img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
+<br>Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
+<br>The following number of DEGs is detected in each Dex trwatment timepoint:
+<br><img src="/Plots/Supplemental Fig 2a.JPG" alt="Supplemental Figure 2a" width="400">
 ### 6- Ratio of Responding Genes (RRG)
 Finally, the number Dex target genes showed a response in each cell is determined to calculate the ratio of responding genes.
 Firstly, the mean log-scaled expression level and standard deviation is calculated for each DEG in untreated cells (using only non-zero values). A gene is "responsive" if it was expressed greater than one SD above the mean untreated level or more than one SD below the mean for downregulated genes.
-<img src="/Plots/Fig 4d.png" alt="Figure 4d" width="400">
+<br><img src="/Plots/Fig 4d.png" alt="Figure 4d" width="400">
