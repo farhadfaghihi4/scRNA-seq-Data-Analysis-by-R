@@ -60,7 +60,7 @@ DimPlot(dex, reduction = "pca", group.by = "Hours_Dex", pt.size = 1.5) +
         legend.text = element_text(size = 17)) + 
   guides(color= guide_legend(title = "Hrs Dex"))
 ```
-<img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400">
+<img src="/Plots/Fig 3a.png" alt="Figure 3a" width="400"></img>
 Likewise, tSNE and UMAP are performed on the data using the top 16 principal components.
 ### 4- Clustering the Data
 The next phase comprises of finding the nearest neighbours using the top 16 principal components. After that, the data is clustered into 7 clusters using a proper resolution.
