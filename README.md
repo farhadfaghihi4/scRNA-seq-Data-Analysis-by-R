@@ -5,6 +5,9 @@ Rewriting the code of an article about employing scRNA-seq and bulk RNA-seq for 
 ## Table of Contents
 - [Introduction](#introduction)
 - [The Main Goal](#the-main-goal)
+- [Brief Summary of The Article](#brief-summary-of-the-article)
+- [Softwares and Packages](#softwares-and-packages)
+- [Data Analysis and Plotting Figures](#data-analysis-and-plotting-figures)
 
 ## Introduction
 Cancer is one of the leading causes of death in the world and it can affect people of all ages. Cancer cells are a result of genetic mutations caused by endogenous or environmental factors. The development of malignant tumors is a complex process that is mostly uncovered and it needs to make manifold efforts to unravel the main pathway that every normal cell passes until it turns into a cancer cell. Obviously, shedding light on this multi-stage process to decipher the hidden aspects of cancer cells' progression.
@@ -72,3 +75,10 @@ After clustering the data, the differentially expressed genes is found by compar
 For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
 Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
 <img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
+Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
+The following number of DEGs is detected in each Dex trwatment timepoint:
+<img src="/Plots/Supplemental Fig 2a.JPG" alt="Supplemental Figure 2a" width="400">
+### Ratio of Responding Genes (RRG)
+Finally, the number Dex target genes showed a response in each cell is determined to calculate the ratio of responding genes.
+Firstly, the mean log-scaled expression level and standard deviation is calculated for each DEG in untreated cells (using only non-zero values). A gene is "responsive" if it was expressed greater than one SD above the mean untreated level or more than one SD below the mean for downregulated genes.
+<img src="/Plots/Fig 4d.png" alt="Figure 4d" width="400">
