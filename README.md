@@ -73,7 +73,7 @@ Then, the number of cells in each cluster in different Dex treatment timepoints 
 ### 5- Differentially Expressed Genes (DEGs)
 After clustering the data, the differentially expressed genes is found by comparing each dex-treatment timepoint with the untreated cells. 
 For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an adjusted p-value of 0.01, and excluding genes detected in fewer than 10% of cells.
-<br>Ultimately, the following number of DEGs is detected in each Dex trwatment timepoint:
+<br>Ultimately, the following number of DEGs is detected in each Dex treatment timepoint:
 <br><img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
 <br>Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
 <br>The following number of DEGs is detected in each Dex trwatment timepoint:
