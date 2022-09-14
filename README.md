@@ -76,7 +76,7 @@ For this matter, we exploit the MAST test with a fold change cutoff of 1.25, an 
 <br>Ultimately, the following number of DEGs is detected in each Dex treatment timepoint:
 <br><img src="/Plots/Supplemental Fig 2b.JPG" alt="Supplemental Figure 2b" width="400">
 <br>Likewise, the DEGs of bulk RNA-seq is found by means of Limma-voom package. DEGs are called and filtered for each Dex-treatment timepoint with a fold change cutoff of 1.5 and adjusted p-value of 0.05.
-<br>The following number of DEGs is detected in each Dex trwatment timepoint:
+<br>The following number of DEGs is detected in each Dex treatment timepoint:
 <br><img src="/Plots/Supplemental Fig 2a.JPG" alt="Supplemental Figure 2a" width="400">
 ### 6- Ratio of Responding Genes (RRG)
 Finally, the number Dex target genes showed a response in each cell is determined to calculate the ratio of responding genes.
