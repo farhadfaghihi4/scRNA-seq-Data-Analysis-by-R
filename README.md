@@ -28,7 +28,7 @@ In the first step, the raw data is called and converted it into a Seurat object.
 dex <- read.delim("Data/GSE141834_scRNAseq_rawCounts.txt", header = T, row.names = 1, sep = "\t")
 dex <- CreateSeuratObject(dex,project = "DEX")
 ```
-Then, the data is normalized using the NormalizeData function and the cells with the percentage of mitochondrial genes higher than 5% is removed by the following line of codes:
+Then, the data is normalized using the NormalizeData function, and the cells with a percentage of mitochondrial genes higher than 5% are removed by the following line of codes:
 ```
 dex$percent.mt <- PercentageFeatureSet(dex, pattern = "^MT-")
 dex <- subset(dex, subset = percent.mt < 5)
